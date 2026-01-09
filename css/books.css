@@ -1,0 +1,13 @@
+.table {
+  background: white;
+}
+
+.table th {
+  text-align: center;
+  background-color: #343a40;
+  color: white;
+}
+
+.table td {
+  vertical-align: middle;
+}

@@ -1,0 +1,11 @@
+.borrow-form {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+}
+
+.borrow-form button {
+  width: 100%;
+}

@@ -1,0 +1,10 @@
+.fine-table {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+}
+
+.fine-table th {
+  background-color: #dc3545;
+  color: white;
+}
