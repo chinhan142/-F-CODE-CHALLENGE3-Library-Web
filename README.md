@@ -44,6 +44,73 @@ spring.datasource.password=MẬT_KHẨU_CỦA_BẠN
 
 Sau khi chạy dự án lần đầu để Hibernate tự sinh các bảng, hãy thực thi các lệnh INSERT (trong file database_setup.sql kèm theo) vào database library_db để có dữ liệu demo về sách và tài khoản admin.
 
+```
+/* 
+   FILE KHỞI TẠO DỮ LIỆU HỆ THỐNG QUẢN LÝ THƯ VIỆN
+   Hướng dẫn: Chạy Script này trong SQL Server Management Studio (SSMS)
+*/
+
+-- 1. TẠO DATABASE (Nếu chưa có)
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'library_db')
+BEGIN
+    CREATE DATABASE library_db;
+END
+GO
+
+USE library_db;
+GO
+
+-- 2. DỌN DẸP DỮ LIỆU CŨ THEO THỨ TỰ KHÓA NGOẠI
+-- Xóa bảng con trước, bảng cha sau
+DELETE FROM rent;
+DELETE FROM book_for_rent;
+DELETE FROM books;
+DELETE FROM users;
+GO
+
+-- 3. CHÈN DỮ LIỆU BẢNG: users
+-- ID tự tăng, vai trò ADMIN và USER
+INSERT INTO users (username, password, role) VALUES 
+('admin', '123456', 'ADMIN'),
+('nhan_bui', 'password123', 'USER'),
+('student_01', '123', 'USER'),
+('student_02', '123', 'USER');
+GO
+
+-- 4. CHÈN DỮ LIỆU BẢNG: books (Thông tin đầu sách)
+-- Đảm bảo mỗi đầu sách có quantity = 3
+INSERT INTO books (book_id, author, book_name, category, publish_date, quantity, image_url) VALUES 
+('1', 'Robert C. Martin', 'Clean Code', 'Programming', '2008-08-01', 3, 'https://covers.openlibrary.org/b/id/8226199-L.jpg'),
+('2', 'Herbert Schildt', 'Java Programming', 'Java', '2018-12-15', 3, 'https://covers.openlibrary.org/b/id/8291542-L.jpg'),
+('3', 'Eric Matthes', 'Python Crash Course', 'Python', '2019-05-03', 3, 'https://covers.openlibrary.org/b/id/12547191-L.jpg'),
+('4', 'Jon Duckett', 'HTML and CSS Design', 'Web Design', '2011-10-25', 3, 'https://covers.openlibrary.org/b/id/7120611-L.jpg'),
+('5', 'Douglas Crockford', 'JavaScript The Good Parts', 'JavaScript', '2008-05-01', 3, 'https://covers.openlibrary.org/b/id/7120657-L.jpg'),
+('6', 'John Viescas', 'SQL Queries for Mere Mortals', 'Database', '2014-06-01', 3, 'https://covers.openlibrary.org/b/id/8114421-L.jpg'),
+('7', 'Craig Walls', 'Spring Boot in Action', 'Backend', '2016-01-03', 3, 'https://covers.openlibrary.org/b/id/7946950-L.jpg'),
+('8', 'Stoyan Stefanov', 'React Up and Running', 'Frontend', '2016-07-15', 3, 'https://covers.openlibrary.org/b/id/12411516-L.jpg'),
+('9', 'Thomas Cormen', 'Algorithms Unlocked', 'Algorithms', '2013-03-01', 3, 'https://covers.openlibrary.org/b/id/8120302-L.jpg'),
+('10', 'Erich Gamma', 'Design Patterns', 'Architecture', '1994-10-31', 3, 'https://covers.openlibrary.org/b/id/8114251-L.jpg');
+GO
+
+-- 5. CHÈN DỮ LIỆU BẢNG: book_for_rent (Cuốn sách vật lý)
+-- Mỗi đầu sách (book_id 1-10) chèn đúng 3 barcode để khớp với quantity=3 ở trên
+INSERT INTO book_for_rent (book_bar_code, status, book_id) VALUES 
+('BC001', 'AVAILABLE', '1'), ('BC002', 'AVAILABLE', '1'), ('BC003', 'AVAILABLE', '1'),
+('BC004', 'AVAILABLE', '2'), ('BC005', 'AVAILABLE', '2'), ('BC006', 'AVAILABLE', '2'),
+('BC007', 'AVAILABLE', '3'), ('BC008', 'AVAILABLE', '3'), ('BC009', 'AVAILABLE', '3'),
+('BC010', 'AVAILABLE', '4'), ('BC011', 'AVAILABLE', '4'), ('BC012', 'AVAILABLE', '4'),
+('BC013', 'AVAILABLE', '5'), ('BC014', 'AVAILABLE', '5'), ('BC015', 'AVAILABLE', '5'),
+('BC016', 'AVAILABLE', '6'), ('BC017', 'AVAILABLE', '6'), ('BC018', 'AVAILABLE', '6'),
+('BC019', 'AVAILABLE', '7'), ('BC020', 'AVAILABLE', '7'), ('BC021', 'AVAILABLE', '7'),
+('BC022', 'AVAILABLE', '8'), ('BC023', 'AVAILABLE', '8'), ('BC024', 'AVAILABLE', '8'),
+('BC025', 'AVAILABLE', '9'), ('BC026', 'AVAILABLE', '9'), ('BC027', 'AVAILABLE', '9'),
+('BC028', 'AVAILABLE', '10'), ('BC029', 'AVAILABLE', '10'), ('BC030', 'AVAILABLE', '10');
+GO
+
+-- THÔNG BÁO HOÀN TẤT
+PRINT 'Database library_db setup successfully with clean dataset!';
+```
+
 4. Chạy dự án
 
 Cách 1: Chạy trực tiếp file DemoApplication.java từ IntelliJ IDEA.
