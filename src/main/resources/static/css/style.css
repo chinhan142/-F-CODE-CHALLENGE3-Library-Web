@@ -1,0 +1,14 @@
+body {
+  background-color: #f5f6fa;
+  font-family: Arial, sans-serif;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+h1, h2 {
+  margin-bottom: 20px;
+}
+
