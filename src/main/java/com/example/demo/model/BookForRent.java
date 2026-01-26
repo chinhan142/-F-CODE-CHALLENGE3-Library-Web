@@ -15,10 +15,9 @@ public class BookForRent {
     @ManyToOne
     @JoinColumn(name = "book_id")
     @JsonIgnore
-    @JsonBackReference
     private Book book;
 
-    @OneToMany(mappedBy = "bookForRent")
+    @OneToMany(mappedBy = "bookForRent", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Rent> rentRecords;
 

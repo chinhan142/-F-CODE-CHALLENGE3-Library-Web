@@ -2,116 +2,117 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Admin | Quản lý thư viện</title>
+    <title>Admin | Quản lý hệ thống</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/admin.js"></script>
-
 </head>
-<body>
+<body class="bg-light">
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
-
         <a class="navbar-brand d-flex align-items-center" href="index.html">
-            <img src="image/5.jpg" width="60" style="border-radius: 40%;" class="me-2">
-            Quản Lý Sách
+            <img src="image/5.jpg" width="45" height="45" style="border-radius: 50%;" class="me-2">
+            <span class="fw-bold text-warning">ADMIN DASHBOARD</span>
         </a>
-
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Trang chủ</a>
-                </li>
-
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="books.html">Thông tin sách</a>-->
-<!--                </li>-->
-
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="borrow.html">Mượn sách</a>-->
-<!--                </li>-->
-
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="fine.html">Xem phạt</a>-->
-<!--                </li>-->
-
-
-                <!-- ADMIN ACTIVE -->
-                <li class="nav-item">
-                    <a class="nav-link active text-warning fw-bold" href="admin.html">Admin</a>
-                </li>
-
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto align-items-center" id="auth-menu">
+                <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                <li class="nav-item" id="login-item"></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- ===== CONTENT ADMIN ===== -->
-<div class="container mt-5">
+<div class="container mt-4">
+    <!-- HỆ THỐNG TAB ĐIỀU HƯỚNG -->
+    <ul class="nav nav-pills nav-justified mb-4 shadow-sm bg-white rounded p-2" id="adminTab" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active fw-bold" data-bs-toggle="tab" data-bs-target="#tab-stats">
+                <i class="fas fa-chart-line me-2"></i>THỐNG KÊ
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#tab-inventory">
+                <i class="fas fa-book me-2"></i>QUẢN LÝ KHO SÁCH
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#tab-history">
+                <i class="fas fa-history me-2"></i>LỊCH SỬ MƯỢN TRẢ
+            </button>
+        </li>
+    </ul>
 
-    <!-- TIÊU ĐỀ -->
-    <h2 class="text-center mb-4">📊 DANH SÁCH NGƯỜI MƯỢN SÁCH</h2>
-
-    <!-- BẢNG QUẢN LÝ MƯỢN SÁCH -->
-    <div class="row mb-5">
-        <div class="col-md-12">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">🔥 Top sách được mượn nhiều nhất</div>
+    <div class="tab-content" id="adminTabContent">
+        <!-- TAB 1: THỐNG KÊ -->
+        <div class="tab-pane fade show active" id="tab-stats">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="mb-0 fw-bold text-primary"><i class="fas fa-fire me-2"></i>Top sách mượn nhiều nhất</h5>
+                </div>
                 <div class="card-body">
                     <div id="summary-stats" class="d-flex flex-wrap gap-3">
-                        <!-- JavaScript sẽ đổ các "Badge" thống kê vào đây -->
-                        Đang tính toán số liệu...
+                        <div class="spinner-border text-primary" role="status"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row mb-4 justify-content-center">
-        <div class="col-md-6">
-            <label class="fw-bold">Chọn đầu sách để xem thống kê:</label>
-            <select id="bookSelector" class="form-select border-primary" onchange="filterRecords()">
-                <option value="ALL">--- Tất cả đầu sách ---</option>
-            </select>
-            <div id="statsInfo" class="mt-2 text-primary fw-bold"></div>
+        <!-- TAB 2: QUẢN LÝ KHO SÁCH (CÓ BỘ LỌC GÕ TAY) -->
+        <div class="tab-pane fade" id="tab-inventory">
+            <div class="card border-0 shadow-sm p-4">
+                <div class="row g-3 mb-4 align-items-end">
+                    <div class="col-md-5">
+                        <label class="fw-bold small text-muted text-uppercase">Tìm tên sách</label>
+                        <input type="text" id="invSearchName" class="form-control" placeholder="Nhập tên sách..." onkeyup="filterInventory()">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold small text-muted text-uppercase">Lọc thể loại (Gõ tay)</label>
+                        <input type="text" id="invSearchCategory" class="form-control" placeholder="Gõ: CNTT, Văn học..." onkeyup="filterInventory()">
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <a href="add-book.html" class="btn btn-success w-100 shadow-sm"><i class="fas fa-plus-circle me-1"></i>Thêm mới</a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle text-center">
+                        <thead class="table-primary text-dark">
+                        <tr>
+                            <th>Ảnh</th><th>Mã</th><th>Tên sách</th><th>Thể loại</th><th>Số lượng</th><th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody id="book-manage-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: LỊCH SỬ MƯỢN TRẢ -->
+        <div class="tab-pane fade" id="tab-history">
+            <div class="card border-0 shadow-sm p-4">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <input type="text" id="historySearch" class="form-control" placeholder="Tìm người mượn hoặc tên sách..." onkeyup="filterHistory()">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                        <tr>
+                            <th>#</th><th>Người mượn</th><th>Tên sách</th><th>Ngày mượn</th><th>Hạn trả</th><th>Trạng thái</th>
+                        </tr>
+                        </thead>
+                        <tbody id="borrow-history-body"></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle text-center">
-            <thead class="table-dark">
-            <tr>
-                <th>#</th>
-                <th>Tên người mượn</th>
-                <th>Tên sách</th>
-                <th>Ngày mượn</th>
-                <th>Hạn trả</th>
-                <th>Trạng thái</th>
-            </tr>
-            </thead>
-            <tbody id="borrow-history-body">
-
-            </tbody>
-        </table>
-    </div>
-
-    <!-- GHI CHÚ -->
-    <div class="alert alert-warning mt-4">
-        <strong>Admin lưu ý:</strong>
-        Theo dõi các trường hợp <span class="badge bg-danger">Quá hạn</span> để xử lý phạt.
-    </div>
-
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
 </body>
 </html>

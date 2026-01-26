@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.*;
@@ -12,14 +14,18 @@ public class Book {
     private String author;
     private String bookName;
     private String category;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate publishDate;
     private int quantity;
     @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<BookForRent> copies;
+
+    public Book() {
+    }
 
     public String getBookId() {
         return bookId;
