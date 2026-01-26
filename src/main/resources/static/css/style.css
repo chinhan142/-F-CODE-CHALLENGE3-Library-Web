@@ -1,14 +1,49 @@
 body {
-  background-color: #f5f6fa;
-  font-family: Arial, sans-serif;
+    background-color: #f5f6fa;
+    font-family: Arial, sans-serif;
 }
 
 .navbar-brand {
-  font-weight: bold;
-  font-size: 20px;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 h1, h2 {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+.navbar {
+    padding: 0.8rem 0;
+}
+
+.badge {
+    padding: 0.5em 0.8em;
+    border-radius: 6px;
+}
+
+.featured-card img {
+    transition: all 0.3s ease;
+}
+
+.featured-card:hover img {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    background-color: #f8f9fa;
 }
 

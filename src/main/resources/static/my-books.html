@@ -2,46 +2,49 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Sách của tôi | Thư viện</title>
+  <title>Sách của tôi | Thư Viện</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/my-books.js"></script>
 </head>
 <body class="bg-light">
-<!-- Navbar giữ nguyên như trang index.html -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container">
-    <a class="navbar-brand" href="index.html">Quản Lý Sách</a>
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="image/5.jpg" width="45" height="45" style="border-radius: 50%;" class="me-2">
+      <span class="fw-bold">THƯ VIỆN CỦA TÔI</span>
+    </a>
     <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto" id="auth-menu">
-        <!-- Sẽ hiện tên user ở đây -->
-        <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+      <ul class="navbar-nav ms-auto align-items-center" id="auth-menu">
+        <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+        <li class="nav-item" id="login-item"></li>
       </ul>
     </div>
   </div>
 </nav>
 
-
-
-<!--POUR DATA IN-->
 <div class="container mt-5">
-  <h2 class="mb-4 text-center">📖 SÁCH BẠN ĐANG MƯỢN</h2>
-  <div class="card shadow">
-    <div class="card-body">
-      <table class="table table-hover">
-        <thead class="table-primary">
-        <tr>
-          <th>Tên sách</th>
-          <th>Ngày mượn</th>
-          <th>Hạn trả (Dự kiến)</th>
-          <th>Trạng thái</th>
-        </tr>
-        </thead>
-        <tbody id="my-books-body">
-        <!-- Dữ liệu đổ vào đây -->
-        </tbody>
-      </table>
-      <div id="no-data" class="text-center p-3" style="display:none;">Bạn chưa mượn cuốn sách nào.</div>
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+      <h3 class="fw-bold mb-4 text-primary"><i class="fas fa-bookmark me-2"></i>Sách bạn đang mượn</h3>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+          <tr>
+            <th>Tên sách</th>
+            <th>Ngày mượn</th>
+            <th>Hạn trả dự kiến</th>
+            <th>Trạng thái</th>
+          </tr>
+          </thead>
+          <tbody id="my-books-body"></tbody>
+        </table>
+      </div>
+      <div id="no-data" class="text-center py-5" style="display:none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="100" class="opacity-25 mb-3">
+        <p class="text-muted">Bạn chưa mượn cuốn sách nào.</p>
+        <a href="index.html" class="btn btn-outline-primary btn-sm">Mượn sách ngay</a>
+      </div>
     </div>
   </div>
 </div>

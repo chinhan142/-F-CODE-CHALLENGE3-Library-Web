@@ -35,18 +35,25 @@ function createBookCard(book) {
     const imgPath = book.imageUrl || book.image_url || book.imageURL;
     return `
     <div class="col-md-3 mb-3">
-            <div class="card featured-card h-100">
-                <img src="https://via.placeholder.com/150x200?text=Book" class="card-img-top" alt="${book.bookName}">
-                <div class="card-body text-center d-flex flex-column">
-                    <h5 class="card-title">${book.bookName}</h5>
-                    <p class="card-text text-muted small">${book.author}</p>
-                    <div class="mt-auto">
-                        <a href="books.html?id=${book.bookId}" class="btn btn-outline-primary btn-sm">Xem</a>
-                        <button onclick="borrowBook('${book.bookId}')" class="btn btn-success btn-sm">Mượn</button>
-                    </div>
+        <div class="card featured-card h-100 shadow-sm border-0">
+            <!-- Sửa src ở đây để dùng imgPath -->
+            <div class="position-relative" style="height: 300px; overflow: hidden; border-radius: 8px 8px 0 0;">
+                <img src="${imgPath}" 
+                     class="card-img-top w-100 h-100" 
+                     style="object-fit: cover;" 
+                     onerror="this.src='https://via.placeholder.com/200x300?text=Error+Image'"
+                     alt="${book.bookName}">
+            </div>
+            <div class="card-body text-center d-flex flex-column">
+                <h6 class="card-title fw-bold text-truncate">${book.bookName}</h6>
+                <p class="card-text text-muted small mb-3">${book.author}</p>
+                <div class="mt-auto d-flex justify-content-center gap-2">
+                    <a href="books.html?id=${book.bookId}" class="btn btn-outline-primary btn-sm px-3">Xem</a>
+                    <button onclick="borrowBook('${book.bookId}')" class="btn btn-success btn-sm px-3">Mượn</button>
                 </div>
             </div>
         </div>
+    </div>
     `;
 }
 
@@ -63,13 +70,21 @@ function checkLoginStatus() {
         const myBooksLink = `<a href="my-books.html" class="btn btn-outline-info btn-sm me-2">Sách của tôi</a>`;
         let adminLink = "";
         if (role && role.toUpperCase() === "ADMIN") {
-            adminLink = `<a href="admin.html" class="btn btn-outline-warning btn-sm me-3">Quản trị</a>`;
+            adminLink = `
+        <a href="add-book.html" class="btn btn-warning btn-sm me-2 fw-bold">+ Nhập Sách</a>
+        <a href="admin.html" class="btn btn-outline-warning btn-sm me-3">Dashboard</a>
+            `;
         }
         loginItem.innerHTML = `
-            <div class="d-flex align-item-center">
+            <div class="d-flex align-items-center">
                 ${adminLink}
-                <span class="nav-link text-warning me-2">Chào, ${username}</span>
-                <button onclick="logout()" class="btn btn-outline-danger btn-sm">Đăng xuất</button>
+                <a href="my-books.html" class="btn btn-outline-info btn-sm me-3">Sách của tôi</a>
+                <span class="text-white me-3 small">
+                    <i class="fas fa-user-circle me-1 text-info"></i>Chào, <b>${username}</b>
+                </span>
+                <button onclick="logout()" class="btn btn-sm btn-danger px-3 shadow-sm">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
             </div>
         `;
     }
@@ -91,11 +106,8 @@ async function borrowBook(bookId) {
 
     try {
         const response = await fetch('http://127.0.0.1:8080/api/rent/borrow', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                userId: userId,
-                bookId: bookId
+            method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
+                userId: userId, bookId: bookId
             })
         });
         const result = await response.json();

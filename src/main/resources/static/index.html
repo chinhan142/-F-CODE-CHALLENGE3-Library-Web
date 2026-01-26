@@ -1,74 +1,74 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Trang chủ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ | Thư Viện</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .featured-card {
+            transition: transform 0.3s;
+            border: none;
+        }
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/home.css">
+        .featured-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .home-title {
+            font-weight: 800;
+            color: #2c3e50;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-light">
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="index.html">
-      <img src="image/5.jpg" width="80" style="border-radius: 40%;" class="me-2">
-      Quản Lý Sách
-    </a>
-
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="menu">
-      <ul class="navbar-nav ms-auto" id="auth-menu">
-        <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
-        <li class="nav-item"><a class="nav-link" href="my-books.html">Quản lý</a></li>
-<!--        <li class="nav-item"><a class="nav-link" href="borrow.html">Mượn sách</a></li>-->
-<!--        <li class="nav-item"><a class="nav-link" href="fine.html">Xem phạt</a></li>-->
-        <li class="nav-item" id="login-item"><a class="nav-link" href="login.html">Login</a></li>
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <img src="image/5.jpg" width="45" height="45" style="border-radius: 50%;" class="me-2 object-fit-cover">
+            <span class="fw-bold">QUẢN LÝ SÁCH</span>
+        </a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto align-items-center" id="auth-menu">
+                <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+                <li class="nav-item" id="login-item"><a class="nav-link" href="login.html">Đăng nhập</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
-<!-- ===== GIỚI THIỆU ===== -->
 <div class="container text-center mt-5">
-  <h1 class="home-title">HỆ THỐNG QUẢN LÝ THƯ VIỆN</h1>
-  <p class="home-desc">Quản lý sách – Mượn trả – Phí phạt</p>
+    <h1 class="home-title display-4">HỆ THỐNG QUẢN LÝ THƯ VIỆN</h1>
+    <p class="lead text-muted">Tìm kiếm tri thức – Mượn trả dễ dàng – Quản lý thông minh</p>
 </div>
 
-<!-- ===== SÁCH NỔI BẬT (Carousel 4 sách/slide + nút ◀ ▶) ===== -->
-<div class="container mt-5">
-  <h2 class="text-center mb-4"> SÁCH NỔI BẬT</h2>
-
-  <div id="featuredBooks" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-
-    <!-- NÚT ◀ ▶ -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#featuredBooks" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#featuredBooks" data-bs-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </button>
-
-    <div class="carouse-inner" id="dynamic-carousel-inner">
-      <div class="text-center p-5">
-        Connecting to the library...
-      </div>
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold"><i class="fas fa-book-open text-primary me-2"></i>SÁCH NỔI BẬT</h2>
     </div>
-  </div>
+
+    <div id="featuredBooks" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner p-2" id="dynamic-carousel-inner">
+            <div class="text-center p-5 text-muted">Đang kết nối tới thư viện...</div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuredBooks" data-bs-slide="prev"
+                style="width: 5%;">
+            <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuredBooks" data-bs-slide="next"
+                style="width: 5%;">
+            <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
+        </button>
+    </div>
 </div>
 
-
-<!-- Bootstrap JS -->
-<script src="js/app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
+<script src="js/app.js"></script>
 </body>
 </html>
